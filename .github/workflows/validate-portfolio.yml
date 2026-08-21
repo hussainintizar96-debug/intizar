@@ -1,0 +1,28 @@
+name: Validate Portfolio
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-html:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install HTML validator
+        run: npm install --global html-validate@10
+
+      - name: Validate portfolio HTML
+        run: html-validate intizar-portfolio.html
